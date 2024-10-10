@@ -203,77 +203,81 @@ public class Agenda implements IUtilAgenda {
     }
 
     public void agendaSystem(){
-        boolean systemOn = true;
-        do {
-            Scanner scMenu = new Scanner(System.in);
-            System.out.println("==============================================================================");
-            System.out.println("||                                                                            ||");
-            System.out.println("||                      "+bv+"  BIENVENIDO A TU AGENDA GENX                      ||");
-            System.out.println("||                                                                            ||");
-            System.out.println("||                         1. "+g+" Añadir un nuevo contacto.                   ||");
-            System.out.println("||                         2. "+l+" Ver lista de contactos.                     ||");
-            System.out.println("||                         3. "+e+" Eliminar un contacto.                       ||");
-            System.out.println("||                         4. "+ed+" Editar un contacto.                         ||");
-            System.out.println("||                         5. "+ed+" Verificar espacio.                         ||");
-            System.out.println("||                         6. "+ex+" Salir.                                      ||");
-            System.out.println("||                                                                            ||");
-            System.out.println("==============================================================================");
-            System.out.printf("\t\t\tOpción: _");
-            int optMenu = scMenu.nextInt();
-            System.out.println();
-            scMenu.nextLine();
-            String nombre;
-            String telefono;
-            String apellido;
-            switch (optMenu){
-                case 1:
-                    System.out.println("\nEscribe el NOMBRE del contacto a agregar:");
-                    nombre = scMenu.nextLine();
-                    System.out.println("\nEscribe el APELLIDO del contacto a agregar:");
-                    apellido = scMenu.nextLine();
-                    System.out.println("Escribe el TELÉFONO del contacto a agregar:");
-                    telefono = scMenu.nextLine();
-                    Contacto contacto = new Contacto(nombre, apellido, telefono);
-                    agregarContacto(contacto);
-                    break;
-                case 2:
-                    listarContactos();
+        try{
+            boolean systemOn = true;
+            do {
+                Scanner scMenu = new Scanner(System.in);
+                System.out.println("==============================================================================");
+                System.out.println("||                                                                            ||");
+                System.out.println("||                      "+bv+"  BIENVENIDO A TU AGENDA GENX                      ||");
+                System.out.println("||                                                                            ||");
+                System.out.println("||                         1. "+g+" Añadir un nuevo contacto.                   ||");
+                System.out.println("||                         2. "+l+" Ver lista de contactos.                     ||");
+                System.out.println("||                         3. "+e+" Eliminar un contacto.                       ||");
+                System.out.println("||                         4. "+ed+" Editar un contacto.                         ||");
+                System.out.println("||                         5. "+ed+" Verificar espacio.                         ||");
+                System.out.println("||                         6. "+ex+" Salir.                                      ||");
+                System.out.println("||                                                                            ||");
+                System.out.println("==============================================================================");
+                System.out.printf("\t\t\tOpción: _");
+                int optMenu = scMenu.nextInt();
+                System.out.println();
+                scMenu.nextLine();
+                String nombre;
+                String telefono;
+                String apellido;
+                switch (optMenu){
+                    case 1:
+                        System.out.println("\nEscribe el NOMBRE del contacto a agregar:");
+                        nombre = scMenu.nextLine();
+                        System.out.println("\nEscribe el APELLIDO del contacto a agregar:");
+                        apellido = scMenu.nextLine();
+                        System.out.println("Escribe el TELÉFONO del contacto a agregar:");
+                        telefono = scMenu.nextLine();
+                        Contacto contacto = new Contacto(nombre, apellido, telefono);
+                        agregarContacto(contacto);
+                        break;
+                    case 2:
+                        listarContactos();
 
-                    break;
-                case 3:
-                    System.out.println("\nEscribe el NOMBRE del contacto a eliminar:");
-                    nombre = scMenu.nextLine();
-                    System.out.println("\nEscribe el APELLIDO del contacto a eliminar:");
-                    apellido = scMenu.nextLine();
-                    boolean existe = lista.stream().anyMatch(c -> c.getNombre()
-                            .equalsIgnoreCase(nombre) && c.getApellido().equalsIgnoreCase(apellido));
-                    if(existe){
-                        Contacto cont = lista.stream().filter(contact -> contact.getNombre()
-                                .equalsIgnoreCase(nombre) && contact.getApellido().equalsIgnoreCase(apellido)).findFirst().get();
-                        eliminarContacto(cont);
-                    }else{
-                        System.out.println("El contacto que quieres eliminar no está en la lista!");
-                    }
-                    break;
-                case 4:
-                    editContacts();
-                    break;
+                        break;
+                    case 3:
+                        System.out.println("\nEscribe el NOMBRE del contacto a eliminar:");
+                        nombre = scMenu.nextLine();
+                        System.out.println("\nEscribe el APELLIDO del contacto a eliminar:");
+                        apellido = scMenu.nextLine();
+                        boolean existe = lista.stream().anyMatch(c -> c.getNombre()
+                                .equalsIgnoreCase(nombre) && c.getApellido().equalsIgnoreCase(apellido));
+                        if(existe){
+                            Contacto cont = lista.stream().filter(contact -> contact.getNombre()
+                                    .equalsIgnoreCase(nombre) && contact.getApellido().equalsIgnoreCase(apellido)).findFirst().get();
+                            eliminarContacto(cont);
+                        }else{
+                            System.out.println("El contacto que quieres eliminar no está en la lista!");
+                        }
+                        break;
+                    case 4:
+                        editContacts();
+                        break;
 
-                case 5:
-                       agendaLlena();
-                    break;
+                    case 5:
+                        agendaLlena();
+                        break;
 
 
-                case 6:
-                    System.out.println("\nHaz salido de la Agenda!");
-                    System.out.println("Un sistema hecho con mucho "+love);
-                    systemOn = false;
-                    break;
-                default:
-                    System.out.println("\nOpción incorrecta! Por favor, elige una opción correcta.");
-            }
+                    case 6:
+                        System.out.println("\nHaz salido de la Agenda!");
+                        System.out.println("Un sistema hecho con mucho "+love);
+                        systemOn = false;
+                        break;
+                    default:
+                        System.out.println("\nOpción incorrecta! Por favor, elige una opción correcta.");
+                }
 
-        }while(systemOn);
+            }while(systemOn);
+        }catch (InputMismatchException e){
+            System.out.println("Tiene que elegir como opción un número!. Vuelves a iniciar el programa.");
+        }
     }
 
 
