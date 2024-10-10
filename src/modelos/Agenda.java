@@ -3,6 +3,7 @@ package modelos;
 import datos.IUtilAgenda;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.IntStream;
 
 public class Agenda implements IUtilAgenda {
@@ -39,14 +40,17 @@ public class Agenda implements IUtilAgenda {
 
     @Override
     public void listarContactos() {
+        Function<Contacto, String> porNombre = Contacto::getNombre;
         // mostrar los elementos de la lista
         if (lista.isEmpty()){
             System.out.println("La lista esta vacia.  Agrega un contacto");
             System.out.println();
             return;
         }
-        lista.stream().forEach(c -> System.out.println(c));
-        System.out.println();
+        Comparator<Contacto> comparadorNombre = Comparator.comparing(porNombre);
+        System.out.println("------= LISTA DE CONTACTOS ORDENADA ALFABÉTICAMENTE POR NOMBRE =-------");
+        lista.stream().sorted(comparadorNombre).forEach(c -> System.out.println(c));
+        
 
     }
 
@@ -107,7 +111,7 @@ public class Agenda implements IUtilAgenda {
         return false;
     }
     //---------
-
+//emoji para unicode
     String g = "\uD83D\uDCBE";
     String l = "\uD83D\uDCDA";
     String e = "❌";
@@ -115,12 +119,11 @@ public class Agenda implements IUtilAgenda {
     String ex = "\uD83D\uDD1A";
     String bv = "\uD83D\uDC68\uD83C\uDFFD\u200D\uD83D\uDCBB";
     String love = "꒒ ০ ⌵ ୧ ♡";
-
-
-
+    //verifica si un contacto existe en la lista
     public Boolean verifyContact(String nameContact){
         return lista.stream().anyMatch(c -> c.getNombre().equalsIgnoreCase(nameContact));
     }
+    //menu de editar contacto
     public void editContacts(){
         Scanner sc = new Scanner(System.in);
 
@@ -133,13 +136,16 @@ public class Agenda implements IUtilAgenda {
         System.out.println("- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -");
         System.out.printf("Opción: _");
         int optEdit = sc.nextInt();
+        //creamos un map para mostrar una lista enumerada.
         Map<Integer, Contacto> listaPersons = new HashMap<>();
+
         IntStream.range(0,lista.size()).forEach(n -> listaPersons.put(n+1, lista.get(n)));
         String titulo = "-----------------------------=LISTA DE CONTACTOS=-----------------------------";
         switch (optEdit){
             case 1:
                 System.out.println(titulo);
                 if(!listaPersons.isEmpty()){
+
                     listaPersons.entrySet().forEach(s -> System.out.printf("%d. %s%n", s.getKey(), s.getValue()));
                     System.out.println("Elija el contacto de la lista que quiere editar (el numero de lista): ");
                     System.out.printf("\tOpción: _");
