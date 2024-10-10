@@ -6,7 +6,7 @@ public class Agenda implements IUtilAgenda {
 
     @Override
     public void agregarContacto(Contacto contacto) {
-        
+
     }
 
     @Override
@@ -43,4 +43,5 @@ public class Agenda implements IUtilAgenda {
     public void espacioLibres() {
 
     }
+
 }
