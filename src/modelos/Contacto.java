@@ -34,4 +34,10 @@ public class Contacto {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+
+    @Override
+    public String toString(){
+        return String.format("Nombre:%n%s %s%nTéfono:%n%s%n%n",
+                getNombre(), getApellido(), getTelefono());
+    }
 }

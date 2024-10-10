@@ -1,5 +1,9 @@
+import modelos.Agenda;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Agenda agenda = new Agenda();
+       agenda.agendaSystem();
+
     }
 }
