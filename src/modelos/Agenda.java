@@ -51,7 +51,7 @@ public class Agenda implements IUtilAgenda {
 
     @Override
     public void agendaLlena() {
-        if (listaContactos.length == maximo) {
+        if (lista.length == maximo) {
             System.out.println("la lista esta llena");
         }
     }
@@ -59,11 +59,9 @@ public class Agenda implements IUtilAgenda {
     @Override
     public void espacioLibres() {
         int contador = 0;
-        for (Contacto c : listaContactos) {
-            if (c.equals(null)) {
-                contador++;
-            }
-        }
-        System.out.println("espacio libre:"+ contador);
+
+        System.out.println(lista.stream().count());
+
+
     }
 }
